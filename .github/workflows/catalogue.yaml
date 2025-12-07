@@ -1,42 +1,36 @@
-name: Catalogue
+name: Catalogue CI
 
+# Trigger the workflow on push or pull request to main,
+# but only if files inside catalogue/ or the workflow file itself change
 on:
   push:
     branches:
-      - master
+      - main
     paths:
-      - '**.js'  # Only trigger on changes to Python files (**.py)
-      - '.github/workflows/catalogue.yaml'  # Include workflow file changes
-
+      - 'catalogue/**'
   pull_request:
     branches:
-      - master
+      - main
     paths:
-      - '**.js'  # Only trigger on changes to Python files (**.py)
-      - '.github/workflows/catalogue.yaml'  # Include workflow file changes
+      - 'catalogue/**'
 
 jobs:
-  payment:
-    name: Build and deploy catalogue microservice
-    runs-on: [self-hosted]  # Use a standard runner instead of self-hosted
+  build-and-deploy:
+    name: Build, Push & Deploy Catalogue
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code 
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: NPM install
-        run: npm install 
+      - name: Docker Login
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Build Docker image
         run: |
-          docker build -t catalogue .  # Build image tagged as 'payment' from current directory
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:catalogue-${{ github.run_id }} ./catalogue
 
-      - name: Docker Login (use secrets)
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Docker Push
+      - name: Push Docker image
         run: |
-          docker tag catalogue ${name}/catalogue:latest
-          docker catalogue ${name}/catalogue:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:catalogue-${{ github.run_id }}

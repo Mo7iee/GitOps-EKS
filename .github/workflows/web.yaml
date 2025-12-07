@@ -1,22 +1,22 @@
-name: Payment CI
+name: Web CI
 
 # Trigger the workflow on push or pull request to main,
-# but only if files inside payment/ or the workflow file itself change
+# but only if files inside web/ or the workflow file itself change
 on:
   push:
     branches:
       - main
     paths:
-      - 'payment/**'
+      - 'web/**'
   pull_request:
     branches:
       - main
     paths:
-      - 'payment/**'
+      - 'web/**'
 
 jobs:
   build-and-deploy:
-    name: Build, Push & Deploy Payment
+    name: Build, Push & Deploy Web
     runs-on: ubuntu-latest
 
     steps:
@@ -29,8 +29,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:payment-${{ github.run_id }} ./payment
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:web-${{ github.run_id }} ./web
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:payment-${{ github.run_id }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:web-${{ github.run_id }}

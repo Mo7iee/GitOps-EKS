@@ -8,13 +8,11 @@ on:
       - main
     paths:
       - 'cart/**'
-      - '.github/workflows/cart.yaml'
   pull_request:
     branches:
       - main
     paths:
       - 'cart/**'
-      - '.github/workflows/cart.yaml'
 
 jobs:
   build-and-deploy:
@@ -22,21 +20,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout the repo
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ Log in to Docker Hub
       - name: Docker Login
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-      # 3️⃣ Build Docker image
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:cart-${{ github.run_id }} ./cart
 
-      # 4️⃣ Push Docker image to Docker Hub
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:cart-${{ github.run_id }}
