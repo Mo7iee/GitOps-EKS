@@ -1,42 +1,44 @@
-name: Cart
+name: Cart CI
 
+# Trigger the workflow on push or pull request to master,
+# but only if files inside cart/ or the workflow file itself change
 on:
   push:
     branches:
-      - master
+      - main
     paths:
-      - '**.js'  # Only trigger on changes to Python files (**.py)
-      - '.github/workflows/cart.yaml'  # Include workflow file changes
-
+      - 'cart/**'
+      - '.github/workflows/cart.yaml'
   pull_request:
     branches:
-      - master
+      - main
     paths:
-      - '**.js'  # Only trigger on changes to Python files (**.py)
-      - '.github/workflows/cart.yaml'  # Include workflow file changes
+      - 'cart/**'
+      - '.github/workflows/cart.yaml'
 
 jobs:
-  payment:
-    name: Build and deploy cart microservice
-    runs-on: [self-hosted]  # Use a standard runner instead of self-hosted
+  build-and-deploy:
+    name: Build, Push & Deploy Cart
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code 
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+      # 1️⃣ Checkout the repo
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: NPM install
-        run: npm install 
+      # 2️⃣ Log in to Docker Hub
+      - name: Docker Login
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
+      # 3️⃣ Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t cart .  # Build image tagged as 'payment' from current directory
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:cart-${{ github.run_id }} ./cart
 
-      - name: Docker Login (use secrets)
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Docker Push
+      # 4️⃣ Push Docker image to Docker Hub
+      - name: Push Docker image
         run: |
-          docker tag cart ${name}/cart:latest
-          docker push ${name}/cart:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:cart-${{ github.run_id }}
+
+      
