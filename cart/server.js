@@ -121,7 +121,7 @@ app.get('/rename/:from/:to', (req, res) => {
             res.status(500).send(err);
         } else {
             if(data == null) {
-                res.status(404).send('cart not found');
+                res.status(404).send('cart not found!');
             } else {
                 var cart = JSON.parse(data);
                 saveCart(req.params.to, cart).then((data) => {
