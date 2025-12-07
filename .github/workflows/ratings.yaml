@@ -1,0 +1,36 @@
+name: Ratings CI
+
+# Trigger the workflow on push or pull request to main,
+# but only if files inside payment/ or the workflow file itself change
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'ratings/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'ratings/**'
+
+jobs:
+  build-and-deploy:
+    name: Build, Push & Deploy Ratings
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Docker Login
+        run: |
+          echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:ratings-${{ github.run_id }} ./ratings
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:ratings-${{ github.run_id }}
