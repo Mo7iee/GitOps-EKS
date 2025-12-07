@@ -76,7 +76,7 @@ def pay(id):
             has_shipping = True
 
     if cart.get('total', 0) == 0 or has_shipping == False:
-        app.logger.warn('cart not valid')
+        app.logger.warn('cart not valid!')
         return 'cart not valid', 400
 
     # dummy call to payment gateway, hope they dont object

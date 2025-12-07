@@ -9,6 +9,7 @@ public class Calculator {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+    
 
     Calculator(City city) {
         this.latitude = city.getLatitude();

@@ -128,7 +128,7 @@ func createSpan(headers map[string]interface{}, order string) {
 		span.SetTag("datacenter", fakeDataCenter)
 	} else {
 		log.Println(err)
-		log.Println("Failed to get context from headers")
+		log.Println("Failed to get context from headers!")
 		log.Println("Creating root span")
 		// create root span
 		span = tracer.StartSpan("getOrder")

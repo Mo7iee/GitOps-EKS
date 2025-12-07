@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require __DIR__.'/vendor/autoload.php';
 
+
 use Instana\RobotShop\Ratings\Kernel;
 use Symfony\Component\HttpFoundation\Request;
 
