@@ -16,6 +16,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
+
 public class CartHelper {
     private static final Logger logger = LoggerFactory.getLogger(CartHelper.class);
     
