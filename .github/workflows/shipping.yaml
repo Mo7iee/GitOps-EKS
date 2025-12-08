@@ -1,4 +1,4 @@
-name: Catalogue CI
+name: Shipping CI
 
 # Trigger the workflow on push or pull request to main,
 # but only if files inside catalogue/ or the workflow file itself change
@@ -7,16 +7,16 @@ on:
     branches:
       - main
     paths:
-      - 'catalogue/**'
+      - 'shipping/**'
   pull_request:
     branches:
       - main
     paths:
-      - 'catalogue/**'
+      - 'shipping/**'
 
 jobs:
   build-and-deploy:
-    name: Build, Push & Deploy Catalogue
+    name: Build, Push & Deploy Shipping
     runs-on: ubuntu-latest
 
     steps:
@@ -29,8 +29,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:catalogue-${{ github.run_id }} ./catalogue
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:shipping-${{ github.run_id }} ./catalogue
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:catalogue-${{ github.run_id }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:shipping-${{ github.run_id }}
