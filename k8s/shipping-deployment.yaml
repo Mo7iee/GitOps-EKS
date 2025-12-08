@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipping
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: shipping
+  template:
+    metadata:
+      labels:
+        app: shipping
+    spec:
+      containers:
+        - name: shipping
+          image: mo7iiee/robotshop:shipping-20027024595
+          ports:
+            - containerPort: 8080
