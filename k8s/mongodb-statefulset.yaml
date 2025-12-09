@@ -1,8 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mongodb
 spec:
+  serviceName: mongodb
   replicas: 1
   selector:
     matchLabels:
@@ -14,12 +15,18 @@ spec:
     spec:
       containers:
         - name: mongodb
-          image: mo7iiee/robotshop:mongo
+          image: mongo:4.4
           ports:
             - containerPort: 27017
           volumeMounts:
-            - name: mongo-data
+            - name: data
               mountPath: /data/db
-      volumes:
-        - name: mongo-data
-          emptyDir: {}  # For dev/testing. Use PVC for prod
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: gp3
+        resources:
+          requests:
+            storage: 10Gi

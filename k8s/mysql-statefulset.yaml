@@ -1,8 +1,10 @@
+
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mysql
 spec:
+  serviceName: mysql
   replicas: 1
   selector:
     matchLabels:
@@ -14,12 +16,18 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mo7iiee/robotshop:mysql
+          image: mo7iiee/robotshop:mysql # <--- use your image
           ports:
             - containerPort: 3306
           volumeMounts:
-            - name: mysql-data
+            - name: data
               mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql-data
-          emptyDir: {} 
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: gp3
+        resources:
+          requests:
+            storage: 10Gi
