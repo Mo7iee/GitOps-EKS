@@ -1,0 +1,53 @@
+global:
+  registry: "mo7iiee/robotshop"
+
+services:
+  web:
+    repository: "mo7iiee/robotshop"
+    tag: "web-20007175673"
+    port: 8080
+
+  catalogue:
+    repository: "mo7iiee/robotshop"
+    tag: "catalogue-20007175672"
+    port: 8080
+
+  cart:
+    repository: "mo7iiee/robotshop"
+    tag: "cart-20007175675"
+    port: 8080
+
+  user:
+    repository: "mo7iiee/robotshop"
+    tag: "user-20007175678"
+    port: 8080
+
+  payment:
+    repository: "mo7iiee/robotshop"
+    tag: "payment-20007175683"
+    port: 8080
+
+  shipping:
+    repository: "mo7iiee/robotshop"
+    tag: "shipping-20027024595"
+    port: 8080
+
+  ratings:
+    repository: "mo7iiee/robotshop"
+    tag: "ratings-20007256458"
+    port: 8080
+
+  dispatch:
+    repository: "mo7iiee/robotshop"
+    tag: "dispatch-20007175677"
+    port: 8080
+
+  mongo:
+    repository: "mo7iiee/robotshop"
+    tag: "mongo"
+    port: 27017
+
+  mysql:
+    repository: "mo7iiee/robotshop"
+    tag: "mysql"
+    port: 3306
