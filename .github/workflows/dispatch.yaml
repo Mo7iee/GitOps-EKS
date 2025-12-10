@@ -1,7 +1,5 @@
 name: Dispatch CI
 
-# Trigger the workflow on push or pull request to main,
-# but only if files inside dispatch/ or the workflow file itself change
 on:
   push:
     branches:
@@ -16,12 +14,13 @@ on:
 
 jobs:
   build-and-deploy:
-    name: Build, Push & Deploy Dispatch
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.TOKEN }}
 
       - name: Docker Login
         run: |
@@ -34,3 +33,15 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/robotshop:dispatch-${{ github.run_id }}
+
+      - name: Update Helm chart tag
+        run: |
+          sed -i "s|tag: .*|tag: dispatch-${{ github.run_id }}|" helm/robotshop-chart/values.yaml
+
+      - name: Commit and push Helm chart changes
+        run: |
+          git config --global user.email "mohie707034@gmail.com"
+          git config --global user.name "mo7iee"
+          git add helm/robotshop-chart/values.yaml
+          git commit -m "Update Dispatch image tag to ${{ github.run_id }}"
+          git push origin main
