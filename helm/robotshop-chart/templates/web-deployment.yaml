@@ -19,3 +19,4 @@ spec:
           image: {{ .Values.services.web.repository }}:{{ .Values.services.web.tag }}
           ports:
             - containerPort: {{ .Values.services.web.port | default 8080 }}
+            

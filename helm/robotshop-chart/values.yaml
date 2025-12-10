@@ -6,6 +6,7 @@ services:
     repository: "mo7iiee/robotshop"
     tag: "web-20007175673"
     port: 8080
+    nodePort: 30080 
 
   catalogue:
     repository: "mo7iiee/robotshop"
@@ -42,12 +43,18 @@ services:
     tag: "dispatch-20007175677"
     port: 8080
 
-  mongo:
+  mongodb:
     repository: "mo7iiee/robotshop"
     tag: "mongo"
     port: 27017
+    replicas: 1
+    storage: 10Gi
+    storageClass: gp2
 
   mysql:
     repository: "mo7iiee/robotshop"
     tag: "mysql"
     port: 3306
+    replicas: 1
+    storage: 10Gi
+    storageClass: gp2
