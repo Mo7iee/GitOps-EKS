@@ -4,48 +4,48 @@ global:
 services:
   web:
     repository: "mo7iiee/robotshop"
-    tag: cart-20101726266
+    tag: "web-20102899747"
     port: 8080
     nodePort: 30080 
 
   catalogue:
     repository: "mo7iiee/robotshop"
-    tag: cart-20101726266
+    tag: "catalogue-20007175672"
     port: 8080
 
   cart:
     repository: "mo7iiee/robotshop"
-    tag: cart-20101726266
+    tag: "cart-20101726266"
     port: 8080
 
   user:
     repository: "mo7iiee/robotshop"
-    tag: cart-20101726266
+    tag: "user-20007175678"
     port: 8080
 
   payment:
     repository: "mo7iiee/robotshop"
-    tag: cart-20101726266
+    tag: "payment-20007175683"
     port: 8080
 
   shipping:
     repository: "mo7iiee/robotshop"
-    tag: cart-20101726266
+    tag: "shipping-20027024595"
     port: 8080
 
   ratings:
     repository: "mo7iiee/robotshop"
-    tag: cart-20101726266
+    tag: "ratings-20007256458"
     port: 8080
 
   dispatch:
     repository: "mo7iiee/robotshop"
-    tag: cart-20101726266
+    tag: "dispatch-20007175677"
     port: 8080
 
   mongodb:
     repository: "mo7iiee/robotshop"
-    tag: cart-20101726266
+    tag: "mongo"
     port: 27017
     replicas: 1
     storage: 10Gi
@@ -53,7 +53,7 @@ services:
 
   mysql:
     repository: "mo7iiee/robotshop"
-    tag: cart-20101726266
+    tag: "mysql"
     port: 3306
     replicas: 1
     storage: 10Gi
