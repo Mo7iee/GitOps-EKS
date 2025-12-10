@@ -135,7 +135,6 @@ app.get('/rename/:from/:to', (req, res) => {
     });
 });
 
-
 // update/create cart
 app.get('/add/:id/:sku/:qty', (req, res) => {
     // check quantity
