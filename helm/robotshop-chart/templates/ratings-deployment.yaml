@@ -2,8 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ratings
+  labels:
+    app: ratings
 spec:
-  replicas: 2
+  replicas: {{ .Values.services.ratings.replicas | default 2 }}
   selector:
     matchLabels:
       app: ratings
@@ -14,6 +16,6 @@ spec:
     spec:
       containers:
         - name: ratings
-          image: mo7iiee/robotshop:ratings-20007256458
+          image: {{ .Values.services.ratings.repository }}:{{ .Values.services.ratings.tag }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.services.ratings.port | default 8080 }}

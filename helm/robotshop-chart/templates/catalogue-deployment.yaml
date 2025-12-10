@@ -2,8 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: catalogue
+  labels:
+    app: catalogue
 spec:
-  replicas: 2
+  replicas: {{ .Values.services.catalogue.replicas | default 2 }}
   selector:
     matchLabels:
       app: catalogue
@@ -14,6 +16,6 @@ spec:
     spec:
       containers:
         - name: catalogue
-          image: mo7iiee/robotshop:catalogue-20007175672
+          image: {{ .Values.services.catalogue.repository }}:{{ .Values.services.catalogue.tag }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.services.catalogue.port | default 8080 }}

@@ -2,8 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user
+  labels:
+    app: user
 spec:
-  replicas: 2
+  replicas: {{ .Values.services.user.replicas | default 2 }}
   selector:
     matchLabels:
       app: user
@@ -14,6 +16,6 @@ spec:
     spec:
       containers:
         - name: user
-          image: mo7iiee/robotshop:user-20007175678
+          image: {{ .Values.services.user.repository }}:{{ .Values.services.user.tag }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.services.user.port | default 8080 }}

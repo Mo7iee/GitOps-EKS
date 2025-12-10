@@ -1,11 +1,12 @@
-
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql
+  labels:
+    app: mysql
 spec:
   serviceName: mysql
-  replicas: 1
+  replicas: {{ .Values.services.mysql.replicas | default 1 }}
   selector:
     matchLabels:
       app: mysql
@@ -16,9 +17,9 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mo7iiee/robotshop:mysql # <--- use your image
+          image: {{ .Values.services.mysql.repository }}:{{ .Values.services.mysql.tag }}
           ports:
-            - containerPort: 3306
+            - containerPort: {{ .Values.services.mysql.port | default 3306 }}
           volumeMounts:
             - name: data
               mountPath: /var/lib/mysql
@@ -27,7 +28,7 @@ spec:
         name: data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: gp3
+        storageClassName: {{ .Values.services.mysql.storageClass | default "gp2" }}
         resources:
           requests:
-            storage: 10Gi
+            storage: {{ .Values.services.mysql.storage | default "10Gi" }}

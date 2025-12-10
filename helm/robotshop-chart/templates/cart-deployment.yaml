@@ -2,8 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cart
+  labels:
+    app: cart
 spec:
-  replicas: 2
+  replicas: {{ .Values.services.cart.replicas | default 2 }}
   selector:
     matchLabels:
       app: cart
@@ -14,6 +16,6 @@ spec:
     spec:
       containers:
         - name: cart
-          image: mo7iiee/robotshop:cart-20007175675
+          image: {{ .Values.services.cart.repository }}:{{ .Values.services.cart.tag }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.services.cart.port | default 8080 }}

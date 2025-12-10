@@ -2,8 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: payment
+  labels:
+    app: payment
 spec:
-  replicas: 2
+  replicas: {{ .Values.services.payment.replicas | default 2 }}
   selector:
     matchLabels:
       app: payment
@@ -14,6 +16,6 @@ spec:
     spec:
       containers:
         - name: payment
-          image: mo7iiee/robotshop:payment-20007175683
+          image: {{ .Values.services.payment.repository }}:{{ .Values.services.payment.tag }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.services.payment.port | default 8080 }}

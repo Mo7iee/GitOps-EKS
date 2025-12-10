@@ -2,8 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dispatch
+  labels:
+    app: dispatch
 spec:
-  replicas: 2
+  replicas: {{ .Values.services.dispatch.replicas | default 2 }}
   selector:
     matchLabels:
       app: dispatch
@@ -14,6 +16,6 @@ spec:
     spec:
       containers:
         - name: dispatch
-          image: mo7iiee/robotshop:dispatch-20007175677
+          image: {{ .Values.services.dispatch.repository }}:{{ .Values.services.dispatch.tag }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.services.dispatch.port | default 8080 }}

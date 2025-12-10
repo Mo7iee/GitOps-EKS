@@ -2,8 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: shipping
+  labels:
+    app: shipping
 spec:
-  replicas: 2
+  replicas: {{ .Values.services.shipping.replicas | default 2 }}
   selector:
     matchLabels:
       app: shipping
@@ -14,6 +16,6 @@ spec:
     spec:
       containers:
         - name: shipping
-          image: mo7iiee/robotshop:shipping-20027024595
+          image: {{ .Values.services.shipping.repository }}:{{ .Values.services.shipping.tag }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ .Values.services.shipping.port | default 8080 }}
