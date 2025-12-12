@@ -88,7 +88,7 @@ app.get('/product/:sku', (req, res) => {
             req.log.info('product', product);
             if(product) {
                 res.json(product);
-            } else {
+            } else { 
                 res.status(404).send('SKU not found!');
             }
         }).catch((e) => {

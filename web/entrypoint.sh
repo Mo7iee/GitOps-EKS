@@ -9,7 +9,7 @@ BASE_DIR=/usr/share/nginx/html
 
 if [ -n "$1" ]
 then
-    exec "$@"
+    exec "$@" 
 fi
 
 if [ -n "$INSTANA_EUM_KEY" -a -n "$INSTANA_EUM_REPORTING_URL" ]
