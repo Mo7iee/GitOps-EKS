@@ -10,7 +10,7 @@ services:
 
   catalogue:
     repository: "mo7iiee/robotshop"
-    tag: "catalogue-20007175672"
+    tag: catalogue-20165529676
     port: 8080
 
   cart:
