@@ -30,7 +30,7 @@ services:
 
   shipping:
     repository: "mo7iiee/robotshop"
-    tag: "shipping-20027024595"
+    tag: shipping-20165529668
     port: 8080
 
   ratings:
