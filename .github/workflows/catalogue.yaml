@@ -44,5 +44,6 @@ jobs:
           git config --global user.email "mohie707034@gmail.com"
           git config --global user.name "mo7iee"
           git add helm/robotshop-chart/values.yaml
-          git commit -m "Update Catalogue image tag to ${{ github.run_id }}"
+          git commit -m "Update Catalogue image tag to ${{ github.run_id }}"]
+          git pull --rebase origin main   
           git push origin main

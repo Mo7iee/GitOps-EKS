@@ -45,4 +45,5 @@ jobs:
           git config --global user.name "mo7iee"
           git add helm/robotshop-chart/values.yaml
           git commit -m "Update Web image tag to ${{ github.run_id }}"
+          git pull --rebase origin main
           git push origin main
