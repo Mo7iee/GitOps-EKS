@@ -25,7 +25,7 @@ services:
 
   payment:
     repository: "mo7iiee/robotshop"
-    tag: "payment-20007175683"
+    tag: payment-20165529679
     port: 8080
 
   shipping:
