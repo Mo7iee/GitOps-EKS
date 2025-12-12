@@ -35,7 +35,7 @@ services:
 
   ratings:
     repository: "mo7iiee/robotshop"
-    tag: "ratings-20007256458"
+    tag: ratings-20165529685
     port: 8080
 
   dispatch:
