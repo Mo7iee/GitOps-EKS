@@ -36,7 +36,8 @@ jobs:
 
       - name: Update Helm chart tag
         run: |
-          sed -i "s|tag: .*|tag: catalogue-${{ github.run_id }}|" helm/robotshop-chart/values.yaml
+          sed -i '/^  catalogue:/,/^  [a-zA-Z]/ s/tag:.*/tag: catalogue-'"${{ github.run_id }}"'/' helm/robotshop-chart/values.yaml
+
 
       - name: Commit and push Helm chart changes
         run: |
