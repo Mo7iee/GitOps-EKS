@@ -21,7 +21,7 @@ public class CartHelper {
     private static final Logger logger = LoggerFactory.getLogger(CartHelper.class);
     
     private String baseUrl;
-
+ 
     public CartHelper(String baseUrl) {
         this.baseUrl = baseUrl;
     }

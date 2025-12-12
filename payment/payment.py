@@ -88,10 +88,10 @@ def pay(id):
         return str(err), 500
     if req.status_code != 200:
         return 'payment error', req.status_code
-
+ 
     # Prometheus
-    # items purchased
-    item_count = countItems(cart.get('items', []))
+    # items purchased 
+    item_count = countItems(cart.get('items', [])) 
     PromMetrics['SOLD_COUNTER'].inc(item_count)
     PromMetrics['AUS'].observe(item_count)
     PromMetrics['AVS'].observe(cart.get('total', 0))

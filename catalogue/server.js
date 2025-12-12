@@ -97,12 +97,12 @@ app.get('/product/:sku', (req, res) => {
         });
         }, delay);
     } else {
-        req.log.error('database not available');
+        req.log.error('database not available'); 
         res.status(500).send('database not available');
-    }
-});
+    } 
+}); 
 
-// products in a category
+// products in a category 
 app.get('/products/:cat', (req, res) => {
     if(mongoConnected) {
         collection.find({ categories: req.params.cat }).sort({ name: 1 }).toArray().then((products) => {
