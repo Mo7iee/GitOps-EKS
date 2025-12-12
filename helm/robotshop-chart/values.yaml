@@ -4,7 +4,7 @@ global:
 services:
   web:
     repository: "mo7iiee/robotshop"
-    tag: web-20165352732
+    tag: web-20166683180
     port: 8080
     nodePort: 30080 
 
