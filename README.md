@@ -23,11 +23,14 @@ Before deploying this project, ensure you have the following tools installed and
 ```bash
 git clone https://github.com/Mo7iee/GitOps-EKS.git
 ```
-### 2. Test the app by running it locally without Kubernetes
+### 2. Test the App locally without Kubernetes
 ```bash
 docker-compose up
 ```
-Once the containers are running, you can access the web service at: http://localhost:8080
+Once the containers are running, you can access the web service at: 
+```bash
+http://localhost:8080
+```
 ### 3. Create an EKS cluster
 ```bash
 eksctl create cluster --name demo-cluster --region us-east-1
@@ -99,10 +102,12 @@ kubectl get svc argocd-server -n argocd
 ![f4d6c264-85e6-47f4-89f7-81901a268b8f](https://github.com/user-attachments/assets/915e0652-dfa7-4694-9d35-15387a3d0457)
 
 ![9104871d-5914-45cc-94fe-e56839ff384e](https://github.com/user-attachments/assets/7fa3ebc4-ec91-4ab5-819c-da4bfcb8bbba) 
-### 8. Check application status on ArgoCD
+### 8. Check Application Status on ArgoCD
 You should see all application Pods and Services up and running <br><br>
 ![13b81bb1-69e3-4d11-8fd5-f1877bc295f1](https://github.com/user-attachments/assets/1157ae00-2748-41ae-ad80-7e1b70c8e6e3)
-Now, ArgoCD will automatically sync the Helm chart whenever you push changes to your GitHub repository, ensuring automated, GitOps-style deployment.
+<!-- empty line for spacing -->
+Now, ArgoCD will automatically sync the Helm chart whenever you push changes to your GitHub repository.
+
 
 
 
